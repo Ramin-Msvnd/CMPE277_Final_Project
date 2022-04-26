@@ -1,14 +1,17 @@
-import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import React,{useState} from 'react';
+import {View, StyleSheet, Text, Button} from 'react-native';
 // import GlobalStyle from '../utils/GlobalStyle';
 import MapView, {Marker} from 'react-native-maps';
 
-export default function Map(props) {
-  // const { city, lat, lng } = route.params;
-
+function Map(props) {
+const [region, setRegion] = useState({
+    latitude: 51.5079145,
+    longitude: -0.0899163,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
   return (
-    <View style={styles.body}>
-      <Text style={styles.text}>Italy</Text>
+    <View style={styles.container}>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -17,22 +20,28 @@ export default function Map(props) {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
+        //onRegionChangeComplete runs when the user stops dragging MapView
+        onRegionChangeComplete={(region) => setRegion(region)}
       />
+      {/*Display user's current region:*/}
+      <Text style={styles.text}>Current latitude: {region.latitude}</Text>
+      <Text style={styles.text}>Current longitude: {region.longitude}</Text>
+    <Button title='Set Coordinate' onPress={()=>{props.navigation.navigate('Fetcher')}}></Button>
     </View>
   );
-}
+    }
 
-const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 40,
-    margin: 10,
-  },
-  map: {
-    width: '100%',
-    height: '100%',
-  },
-});
+
+  const styles = StyleSheet.create({
+    container: {
+      ...StyleSheet.absoluteFillObject,
+      flex: 1, //the container will fill the whole screen.
+      justifyContent: "flex-end",
+      alignItems: "center",
+    },
+    map: {
+      ...StyleSheet.absoluteFillObject,
+    },
+  });
+
+  export default Map;
