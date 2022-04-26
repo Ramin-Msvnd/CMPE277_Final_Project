@@ -4,6 +4,7 @@ import { ActivityIndicator, FlatList, Text, View, Button } from 'react-native';
 export default Fetcher = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState({});
+  const latitude = props.navigation.getParam('latitude', '');
   const mm= {home_size: 1500.0,
   lot_size: 2000.0,
   beds: 2,
@@ -36,12 +37,11 @@ const reSet= ()=>{setA(!A);
 const [A, setA]=useState(1)
   return (
    <View>
- <Text>Press Here</Text>
+ <Text>latitude is {latitude}</Text>
  { A ? <Text>{data.prediction}</Text> : null }
  <Button title='Sasa' onPress={()=>{reSet()}}/>
  <Button title='Sasa' onPress={()=>{predict()}}/>
- <Button title='Sasa' onPress={()=>{}}/>
+ <Button title='Sasa' onPress={()=>{props.navigation.navigate('Map')}}/>
     </View>
   );
 };
-//props.navigation.navigate('Main')

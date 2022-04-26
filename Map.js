@@ -10,6 +10,7 @@ const [region, setRegion] = useState({
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
+  
   return (
     <View style={styles.container}>
       <MapView
@@ -26,7 +27,7 @@ const [region, setRegion] = useState({
       {/*Display user's current region:*/}
       <Text style={styles.text}>Current latitude: {region.latitude}</Text>
       <Text style={styles.text}>Current longitude: {region.longitude}</Text>
-    <Button title='Set Coordinate' onPress={()=>{props.navigation.navigate('Fetcher')}}></Button>
+    <Button title='Set Coordinate' onPress={()=> props.navigation.navigate('Fetcher', {longitude: region.longitude, latitude:region.latitude}) }></Button>
     </View>
   );
     }
